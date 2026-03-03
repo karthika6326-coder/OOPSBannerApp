@@ -3,47 +3,39 @@ import java.util.Scanner;
 public class OOPSBannerApp {
 
     public static void main(String[] args) {
-        printOddEvenRange();
-        calculateEmployeeBonus();
-        printMultiplicationTable();
+        checkLeapYearNested();
+        checkLeapYearLogical();
     }
 
-    public static void printOddEvenRange() {
+    public static void checkLeapYearNested() {
         Scanner scanner = new Scanner(System.in);
-        int number = scanner.nextInt();
+        int year = scanner.nextInt();
 
-        if (number >= 1) {
-            for (int i = 1; i <= number; i++) {
-                if (i % 2 == 0) {
-                    System.out.println(i + " is even number");
-                } else {
-                    System.out.println(i + " is odd number");
-                }
+        if (year >= 1582) {
+            if (year % 400 == 0) {
+                System.out.println(year + " is a Leap Year");
+            } else if (year % 100 == 0) {
+                System.out.println(year + " is not a Leap Year");
+            } else if (year % 4 == 0) {
+                System.out.println(year + " is a Leap Year");
+            } else {
+                System.out.println(year + " is not a Leap Year");
             }
         } else {
-            System.out.println("The number " + number + " is not a natural number");
+            System.out.println("Year must be 1582 or later");
         }
     }
 
-    public static void calculateEmployeeBonus() {
+    public static void checkLeapYearLogical() {
         Scanner scanner = new Scanner(System.in);
-        double salary = scanner.nextDouble();
-        int yearsOfService = scanner.nextInt();
-        double bonus = 0;
+        int year = scanner.nextInt();
 
-        if (yearsOfService > 5) {
-            bonus = salary * 0.05;
-        }
-
-        System.out.println("The bonus amount is " + bonus);
-    }
-
-    public static void printMultiplicationTable() {
-        Scanner scanner = new Scanner(System.in);
-        int number = scanner.nextInt();
-
-        for (int i = 6; i <= 9; i++) {
-            System.out.println(number + " * " + i + " = " + (number * i));
+        if (year >= 1582 && ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))) {
+            System.out.println(year + " is a Leap Year");
+        } else if (year >= 1582) {
+            System.out.println(year + " is not a Leap Year");
+        } else {
+            System.out.println("Year must be 1582 or later");
         }
     }
 }
