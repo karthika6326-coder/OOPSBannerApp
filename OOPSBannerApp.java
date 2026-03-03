@@ -1,42 +1,43 @@
-import java.util.HashMap;
+import java.util.Scanner;
+
 public class OOPSBannerApp {
 
     public static void main(String[] args) {
-        calculateHarryAge();
-        calculateSamAverage();
-        convertDistance();
-        calculateProfit();
+        calculateBasicOperations();
+        calculateTriangleArea();
+        calculateSquareSide();
     }
 
-    public static void calculateHarryAge() {
-        int birthYear = 2000;
-        int currentYear = 2024;
-        int age = currentYear - birthYear;
-        System.out.println("Harry's age in 2024 is " + age);
+    public static void calculateBasicOperations() {
+        Scanner scanner = new Scanner(System.in);
+        double number1 = scanner.nextDouble();
+        double number2 = scanner.nextDouble();
+
+        double add = number1 + number2;
+        double sub = number1 - number2;
+        double mul = number1 * number2;
+        double div = number1 / number2;
+
+        System.out.println("The addition, subtraction, multiplication, and division value of 2 numbers " + number1 + " and " + number2 + " is " + add + ", " + sub + ", " + mul + ", and " + div);
     }
 
-    public static void calculateSamAverage() {
-        int maths = 94;
-        int physics = 95;
-        int chemistry = 96;
-        double average = (maths + physics + chemistry) / 3.0;
-        System.out.println("Sam’s average mark in PCM is " + average);
+    public static void calculateTriangleArea() {
+        Scanner scanner = new Scanner(System.in);
+        double base = scanner.nextDouble();
+        double height = scanner.nextDouble();
+
+        double areaCm = 0.5 * base * height;
+        double areaIn = areaCm / (2.54 * 2.54);
+
+        System.out.println("The Area of the triangle in sq in is " + areaIn + " and sq cm is " + areaCm);
     }
 
-    public static void convertDistance() {
-        double km = 10.8;
-        double miles = km * 1.6;
-        System.out.println("The distance " + km + " km in miles is " + miles);
-    }
+    public static void calculateSquareSide() {
+        Scanner scanner = new Scanner(System.in);
+        double perimeter = scanner.nextDouble();
 
-    public static void calculateProfit() {
-        double costPrice = 129.0;
-        double sellingPrice = 191.0;
-        double profit = sellingPrice - costPrice;
-        double profitPercentage = (profit / costPrice) * 100;
+        double side = perimeter / 4;
 
-        System.out.printf("The Cost Price is INR %.0f and Selling Price is INR %.0f\n" +
-                          "The Profit is INR %.0f and the Profit Percentage is %.2f%%\n", 
-                          costPrice, sellingPrice, profit, profitPercentage);
+        System.out.println("The length of the side is " + side + " whose perimeter is " + perimeter);
     }
 }
