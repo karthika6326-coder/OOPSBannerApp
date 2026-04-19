@@ -1,15 +1,9 @@
-public class UC6 {
+public class UC7 {
     public static void main(String[] args) {
         String message;
 
         if (args.length > 0) {
-            StringBuilder sb = new StringBuilder();
-
-            for (String arg : args) {
-                sb.append(arg).append(" ");
-            }
-
-            message = sb.toString().substring(0, sb.length() - 1);
+            message = String.join(" ", args);
         } else {
             message = "Default Message";
         }
