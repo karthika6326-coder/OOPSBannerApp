@@ -1,65 +1,94 @@
 import java.util.Scanner;
 
-public class Vel1PracticePrograms {
+public class FactorAndRecursionApp {
 
-    public static double simpleInterest(double p, double r, double t) {
-        return (p * r * t) / 100;
+    public static int[] findFactors(int n) {
+        int count = 0;
+
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                count++;
+            }
+        }
+
+        int[] factors = new int[count];
+        int index = 0;
+
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                factors[index++] = i;
+            }
+        }
+
+        return factors;
     }
 
-    public static int handshakes(int n) {
-        return (n * (n - 1)) / 2;
+    public static int sum(int[] arr) {
+        int s = 0;
+        for (int i : arr) {
+            s += i;
+        }
+        return s;
     }
 
-    public static double rounds(double a, double b, double c) {
-        double perimeter = a + b + c;
-        double distance = 5000;
-        return distance / perimeter;
+    public static long product(int[] arr) {
+        long p = 1;
+        for (int i : arr) {
+            p *= i;
+        }
+        return p;
+    }
+
+    public static long sumOfSquares(int[] arr) {
+        long s = 0;
+        for (int i : arr) {
+            s += Math.pow(i, 2);
+        }
+        return s;
+    }
+
+    public static int recursiveSum(int n) {
+        if (n == 0)
+            return 0;
+        return n + recursiveSum(n - 1);
+    }
+
+    public static int formulaSum(int n) {
+        return (n * (n + 1)) / 2;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("=== SIMPLE INTEREST ===");
+        int num = sc.nextInt();
 
-        System.out.print("Enter Principal: ");
-        double p = sc.nextDouble();
+        int[] factors = findFactors(num);
 
-        System.out.print("Enter Rate: ");
-        double r = sc.nextDouble();
+        for (int i : factors) {
+            System.out.print(i + " ");
+        }
 
-        System.out.print("Enter Time: ");
-        double t = sc.nextDouble();
+        System.out.println("\n" + sum(factors));
+        System.out.println(product(factors));
+        System.out.println(sumOfSquares(factors));
 
-        double si = simpleInterest(p, r, t);
-
-        System.out.println("The Simple Interest is " + si +
-                " for Principal " + p +
-                ", Rate of Interest " + r +
-                " and Time " + t);
-
-        System.out.println("\n=== HANDSHAKES ===");
-
-        System.out.print("Enter number of students: ");
         int n = sc.nextInt();
 
-        int result = handshakes(n);
+        if (n <= 0) {
+            System.out.println("Not a natural number");
+        } else {
+            int recResult = recursiveSum(n);
+            int formulaResult = formulaSum(n);
 
-        System.out.println("Maximum number of handshakes: " + result);
+            System.out.println(recResult);
+            System.out.println(formulaResult);
 
-        System.out.println("\n=== TRIANGULAR PARK RUN ===");
-
-        System.out.print("Enter side 1: ");
-        double a = sc.nextDouble();
-
-        System.out.print("Enter side 2: ");
-        double b = sc.nextDouble();
-
-        System.out.print("Enter side 3: ");
-        double c = sc.nextDouble();
-
-        double totalRounds = rounds(a, b, c);
-
-        System.out.println("Number of rounds needed for 5km run: " + totalRounds);
+            if (recResult == formulaResult) {
+                System.out.println("Match");
+            } else {
+                System.out.println("Mismatch");
+            }
+        }
 
         sc.close();
     }
