@@ -1,27 +1,6 @@
-import java.util.Scanner;
+import java.util.Random;
 
-public class FactorAndRecursionApp {
-
-    public static int[] findFactors(int n) {
-        int count = 0;
-
-        for (int i = 1; i <= n; i++) {
-            if (n % i == 0) {
-                count++;
-            }
-        }
-
-        int[] factors = new int[count];
-        int index = 0;
-
-        for (int i = 1; i <= n; i++) {
-            if (n % i == 0) {
-                factors[index++] = i;
-            }
-        }
-
-        return factors;
-    }
+public class FootballTeamHeights {
 
     public static int sum(int[] arr) {
         int s = 0;
@@ -31,65 +10,45 @@ public class FactorAndRecursionApp {
         return s;
     }
 
-    public static long product(int[] arr) {
-        long p = 1;
+    public static double mean(int[] arr) {
+        return (double) sum(arr) / arr.length;
+    }
+
+    public static int shortest(int[] arr) {
+        int min = arr[0];
         for (int i : arr) {
-            p *= i;
+            if (i < min) {
+                min = i;
+            }
         }
-        return p;
+        return min;
     }
 
-    public static long sumOfSquares(int[] arr) {
-        long s = 0;
+    public static int tallest(int[] arr) {
+        int max = arr[0];
         for (int i : arr) {
-            s += Math.pow(i, 2);
+            if (i > max) {
+                max = i;
+            }
         }
-        return s;
-    }
-
-    public static int recursiveSum(int n) {
-        if (n == 0)
-            return 0;
-        return n + recursiveSum(n - 1);
-    }
-
-    public static int formulaSum(int n) {
-        return (n * (n + 1)) / 2;
+        return max;
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        int[] heights = new int[11];
+        Random rand = new Random();
 
-        int num = sc.nextInt();
+        for (int i = 0; i < heights.length; i++) {
+            heights[i] = rand.nextInt(101) + 150;
+        }
 
-        int[] factors = findFactors(num);
-
-        for (int i : factors) {
+        System.out.print("Heights: ");
+        for (int i : heights) {
             System.out.print(i + " ");
         }
 
-        System.out.println("\n" + sum(factors));
-        System.out.println(product(factors));
-        System.out.println(sumOfSquares(factors));
-
-        int n = sc.nextInt();
-
-        if (n <= 0) {
-            System.out.println("Not a natural number");
-        } else {
-            int recResult = recursiveSum(n);
-            int formulaResult = formulaSum(n);
-
-            System.out.println(recResult);
-            System.out.println(formulaResult);
-
-            if (recResult == formulaResult) {
-                System.out.println("Match");
-            } else {
-                System.out.println("Mismatch");
-            }
-        }
-
-        sc.close();
+        System.out.println("\nShortest: " + shortest(heights));
+        System.out.println("Tallest: " + tallest(heights));
+        System.out.println("Mean: " + mean(heights));
     }
 }
