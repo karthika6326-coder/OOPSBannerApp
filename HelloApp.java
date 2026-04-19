@@ -1,54 +1,30 @@
-import java.util.Random;
+import java.util.Scanner;
 
-public class FootballTeamHeights {
-
-    public static int sum(int[] arr) {
-        int s = 0;
-        for (int i : arr) {
-            s += i;
-        }
-        return s;
-    }
-
-    public static double mean(int[] arr) {
-        return (double) sum(arr) / arr.length;
-    }
-
-    public static int shortest(int[] arr) {
-        int min = arr[0];
-        for (int i : arr) {
-            if (i < min) {
-                min = i;
-            }
-        }
-        return min;
-    }
-
-    public static int tallest(int[] arr) {
-        int max = arr[0];
-        for (int i : arr) {
-            if (i > max) {
-                max = i;
-            }
-        }
-        return max;
-    }
-
+public class DigitFrequencySimple {
     public static void main(String[] args) {
-        int[] heights = new int[11];
-        Random rand = new Random();
+        Scanner sc = new Scanner(System.in);
 
-        for (int i = 0; i < heights.length; i++) {
-            heights[i] = rand.nextInt(101) + 150;
+        int number = sc.nextInt();
+        int[] freq = new int[10];
+
+        int temp = number;
+
+        if (temp == 0) {
+            freq[0] = 1;
+        } else {
+            while (temp != 0) {
+                int digit = temp % 10;
+                freq[digit]++;
+                temp /= 10;
+            }
         }
 
-        System.out.print("Heights: ");
-        for (int i : heights) {
-            System.out.print(i + " ");
+        for (int i = 0; i < 10; i++) {
+            if (freq[i] > 0) {
+                System.out.println("Digit " + i + " occurs " + freq[i] + " times");
+            }
         }
 
-        System.out.println("\nShortest: " + shortest(heights));
-        System.out.println("Tallest: " + tallest(heights));
-        System.out.println("Mean: " + mean(heights));
+        sc.close();
     }
 }
