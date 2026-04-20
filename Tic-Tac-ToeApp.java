@@ -1,79 +1,55 @@
 import java.util.Scanner;
 
-public class StringOperations {
+public class BMICalculator {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter a string: ");
-        String text = scanner.next();
-
-        int manualLength = getLengthWithoutMethod(text);
-        int builtinLength = text.length();
-
-        System.out.println("Manual length: " + manualLength);
-        System.out.println("Built-in length: " + builtinLength);
-        System.out.println("Lengths match: " + (manualLength == builtinLength));
-
-        scanner.nextLine();
-        System.out.print("\nEnter a sentence: ");
-        String sentence = scanner.nextLine();
-
-        String[] manualSplit = splitIntoWords(sentence);
-        String[] builtinSplit = sentence.split(" ");
-
-        boolean arraysMatch = compareStringArrays(manualSplit, builtinSplit);
-
-        System.out.println("\nManual split:");
-        for (String word : manualSplit) {
-            System.out.println(word);
+        double[][] data = new double[10][2];
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Enter weight (kg) for person " + (i + 1) + ": ");
+            data[i][0] = scanner.nextDouble();
+            System.out.print("Enter height (cm) for person " + (i + 1) + ": ");
+            data[i][1] = scanner.nextDouble();
         }
 
-        System.out.println("\nBuilt-in split:");
-        for (String word : builtinSplit) {
-            System.out.println(word);
-        }
-
-        System.out.println("\nArrays match: " + arraysMatch);
+        String[][] results = computeBMIResults(data);
+        displayResults(results);
 
         scanner.close();
     }
 
-    static int getLengthWithoutMethod(String s) {
-        int count = 0;
-        try {
-            while (true) {
-                s.charAt(count);
-                count++;
-            }
-        } catch (IndexOutOfBoundsException e) {
-            return count;
+    static String[][] computeBMIResults(double[][] data) {
+        String[][] results = new String[10][4];
+        for (int i = 0; i < 10; i++) {
+            double weight = data[i][0];
+            double heightCm = data[i][1];
+            double heightM = heightCm / 100.0;
+            double bmi = weight / (heightM * heightM);
+            String status = getBMIStatus(bmi);
+
+            results[i][0] = String.format("%.1f", heightCm);
+            results[i][1] = String.format("%.1f", weight);
+            results[i][2] = String.format("%.1f", bmi);
+            results[i][3] = status;
         }
+        return results;
     }
 
-    static String[] splitIntoWords(String s) {
-        int wordCount = 1;
-        for (int i = 0; i < getLengthWithoutMethod(s); i++) {
-            if (s.charAt(i) == ' ') wordCount++;
-        }
-        String[] words = new String[wordCount];
-        int start = 0, index = 0;
-        for (int i = 0; i < getLengthWithoutMethod(s); i++) {
-            if (s.charAt(i) == ' ') {
-                words[index++] = s.substring(start, i);
-                start = i + 1;
-            }
-        }
-        words[index] = s.substring(start);
-        return words;
+    static String getBMIStatus(double bmi) {
+        if (bmi <= 18.4) return "Underweight";
+        else if (bmi <= 24.9) return "Normal";
+        else if (bmi <= 39.9) return "Overweight";
+        else return "Obese";
     }
 
-    static boolean compareStringArrays(String[] arr1, String[] arr2) {
-        if (arr1.length != arr2.length) return false;
-        for (int i = 0; i < arr1.length; i++) {
-            if (!arr1[i].equals(arr2[i])) return false;
+    static void displayResults(String[][] results) {
+        System.out.printf("%-10s %-10s %-10s %-15s%n", "Height(cm)", "Weight(kg)", "BMI", "Status");
+        System.out.println("----------------------------------------------------------");
+        for (int i = 0; i < results.length; i++) {
+            System.out.printf("%-10s %-10s %-10s %-15s%n",
+                    results[i][0], results[i][1], results[i][2], results[i][3]);
         }
-        return true;
     }
 }
 
