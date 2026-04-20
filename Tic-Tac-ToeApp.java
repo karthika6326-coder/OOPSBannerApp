@@ -1,86 +1,77 @@
 import java.util.Scanner;
 
-public class StringComparisonDemo {
+public class StringOperations {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // --- Task 1: Compare two strings ---
-        System.out.print("Enter first string: ");
-        String str1 = scanner.next();
-        System.out.print("Enter second string: ");
-        String str2 = scanner.next();
-
-        boolean charAtCompare = compareStrings(str1, str2);
-        boolean equalsCompare = str1.equals(str2);
-
-        System.out.println("Comparison using charAt(): " + charAtCompare);
-        System.out.println("Comparison using equals(): " + equalsCompare);
-        System.out.println("Results match: " + (charAtCompare == equalsCompare));
-
-        // --- Task 2: Substring creation ---
-        System.out.print("\nEnter a string for substring: ");
+        System.out.print("Enter a string: ");
         String text = scanner.next();
-        System.out.print("Enter start index: ");
-        int start = scanner.nextInt();
-        System.out.print("Enter end index: ");
-        int end = scanner.nextInt();
 
-        String manualSubstring = createSubstring(text, start, end);
-        String builtinSubstring = text.substring(start, end);
+        int manualLength = getLengthWithoutMethod(text);
+        int builtinLength = text.length();
 
-        System.out.println("Manual substring: " + manualSubstring);
-        System.out.println("Built-in substring: " + builtinSubstring);
-        System.out.println("Substrings match: " + compareStrings(manualSubstring, builtinSubstring));
+        System.out.println("Manual length: " + manualLength);
+        System.out.println("Built-in length: " + builtinLength);
+        System.out.println("Lengths match: " + (manualLength == builtinLength));
 
-        // --- Task 3: Convert to char array ---
-        System.out.print("\nEnter a string to convert to char array: ");
-        String arrayText = scanner.next();
+        scanner.nextLine();
+        System.out.print("\nEnter a sentence: ");
+        String sentence = scanner.nextLine();
 
-        char[] manualArray = toCharArrayManual(arrayText);
-        char[] builtinArray = arrayText.toCharArray();
+        String[] manualSplit = splitIntoWords(sentence);
+        String[] builtinSplit = sentence.split(" ");
 
-        boolean arraysMatch = compareCharArrays(manualArray, builtinArray);
+        boolean arraysMatch = compareStringArrays(manualSplit, builtinSplit);
 
-        System.out.println("Manual char array: " + new String(manualArray));
-        System.out.println("Built-in char array: " + new String(builtinArray));
-        System.out.println("Arrays match: " + arraysMatch);
+        System.out.println("\nManual split:");
+        for (String word : manualSplit) {
+            System.out.println(word);
+        }
+
+        System.out.println("\nBuilt-in split:");
+        for (String word : builtinSplit) {
+            System.out.println(word);
+        }
+
+        System.out.println("\nArrays match: " + arraysMatch);
 
         scanner.close();
     }
 
-    // Compare two strings using charAt()
-    static boolean compareStrings(String s1, String s2) {
-        if (s1.length() != s2.length()) return false;
-        for (int i = 0; i < s1.length(); i++) {
-            if (s1.charAt(i) != s2.charAt(i)) return false;
+    static int getLengthWithoutMethod(String s) {
+        int count = 0;
+        try {
+            while (true) {
+                s.charAt(count);
+                count++;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return count;
         }
-        return true;
     }
 
-    // Create substring manually using charAt()
-    static String createSubstring(String s, int start, int end) {
-        String result = "";
-        for (int i = start; i < end; i++) {
-            result += s.charAt(i);
+    static String[] splitIntoWords(String s) {
+        int wordCount = 1;
+        for (int i = 0; i < getLengthWithoutMethod(s); i++) {
+            if (s.charAt(i) == ' ') wordCount++;
         }
-        return result;
+        String[] words = new String[wordCount];
+        int start = 0, index = 0;
+        for (int i = 0; i < getLengthWithoutMethod(s); i++) {
+            if (s.charAt(i) == ' ') {
+                words[index++] = s.substring(start, i);
+                start = i + 1;
+            }
+        }
+        words[index] = s.substring(start);
+        return words;
     }
 
-    // Convert string to char array manually
-    static char[] toCharArrayManual(String s) {
-        char[] arr = new char[s.length()];
-        for (int i = 0; i < s.length(); i++) {
-            arr[i] = s.charAt(i);
-        }
-        return arr;
-    }
-
-    // Compare two char arrays
-    static boolean compareCharArrays(char[] arr1, char[] arr2) {
+    static boolean compareStringArrays(String[] arr1, String[] arr2) {
         if (arr1.length != arr2.length) return false;
         for (int i = 0; i < arr1.length; i++) {
-            if (arr1[i] != arr2[i]) return false;
+            if (!arr1[i].equals(arr2[i])) return false;
         }
         return true;
     }
