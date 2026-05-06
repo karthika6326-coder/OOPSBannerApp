@@ -1,30 +1,55 @@
-import java.util.Random;
+public class Main {
 
-public class TicTacToe {
-
-    static char[][] board = {
-        {'_', '_', '_'},
-        {'_', '_', '_'},
-        {'_', '_', '_'}
-    };
-
-    static char computerSymbol = 'O';
+    static boolean isHumanTurn = true;
+    static boolean gameOver = false;
+    static int moves = 0;
 
     public static void main(String[] args) {
-        computerMove();
+
+        while (!gameOver) {
+
+            if (isHumanTurn) {
+                System.out.println("Human's Turn");
+                playerMove();
+            } else {
+                System.out.println("Computer's Turn");
+                computerMove();
+            }
+
+            moves++;
+
+            if (checkWin()) {
+                System.out.println((isHumanTurn ? "Human" : "Computer") + " Wins!");
+                gameOver = true;
+            }
+            else if (checkDraw()) {
+                System.out.println("Game Draw!");
+                gameOver = true;
+            }
+            else {
+                isHumanTurn = !isHumanTurn; // Switch turn
+            }
+        }
+    }
+
+    static void playerMove() {
+        System.out.println("Player makes a move...");
+        // Add player move logic here
     }
 
     static void computerMove() {
-        Random rand = new Random();
-        int row, col;
-        while (true) {
-            row = rand.nextInt(3);
-            col = rand.nextInt(3);
-            if (board[row][col] == '_') {
-                board[row][col] = computerSymbol;
-                break;
-            }
-        }
+        System.out.println("Computer makes a move...");
+        // Add computer move logic here
+    }
+
+    static boolean checkWin() {
+        // Replace with actual win condition
+        return false;
+    }
+
+    static boolean checkDraw() {
+        // Example: Draw after 9 moves
+        return moves >= 9;
     }
 }
 
