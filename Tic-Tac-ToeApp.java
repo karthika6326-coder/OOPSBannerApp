@@ -1,55 +1,29 @@
-public class Main {
+public class TicTacToe {
 
-    static boolean isHumanTurn = true;
-    static boolean gameOver = false;
-    static int moves = 0;
+    static char[][] board = new char[3][3];
 
     public static void main(String[] args) {
+        System.out.println(hasWon('X'));
+    }
 
-        while (!gameOver) {
-
-            if (isHumanTurn) {
-                System.out.println("Human's Turn");
-                playerMove();
-            } else {
-                System.out.println("Computer's Turn");
-                computerMove();
+    static boolean hasWon(char symbol) {
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) {
+                return true;
             }
-
-            moves++;
-
-            if (checkWin()) {
-                System.out.println((isHumanTurn ? "Human" : "Computer") + " Wins!");
-                gameOver = true;
-            }
-            else if (checkDraw()) {
-                System.out.println("Game Draw!");
-                gameOver = true;
-            }
-            else {
-                isHumanTurn = !isHumanTurn; // Switch turn
+            if (board[0][i] == symbol && board[1][i] == symbol && board[2][i] == symbol) {
+                return true;
             }
         }
-    }
 
-    static void playerMove() {
-        System.out.println("Player makes a move...");
-        // Add player move logic here
-    }
+        if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) {
+            return true;
+        }
+        if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) {
+            return true;
+        }
 
-    static void computerMove() {
-        System.out.println("Computer makes a move...");
-        // Add computer move logic here
-    }
-
-    static boolean checkWin() {
-        // Replace with actual win condition
         return false;
-    }
-
-    static boolean checkDraw() {
-        // Example: Draw after 9 moves
-        return moves >= 9;
     }
 }
 
